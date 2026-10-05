@@ -1,0 +1,57 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: skill-web-public-https-redirect
+  namespace: skill-web-dev
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: skill-web-public
+  namespace: skill-web-dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - demo-skill.viendev.xyz
+    secretName: skill-web-public-tls
+  rules:
+  - host: demo-skill.viendev.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: skill-web
+            port:
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: skill-web-public-http
+  namespace: skill-web-dev
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: skill-web-dev-skill-web-public-https-redirect@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: demo-skill.viendev.xyz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: skill-web
+            port:
+              number: 80
