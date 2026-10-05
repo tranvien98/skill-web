@@ -22,7 +22,7 @@ function transformJsxInJavaScript() {
 
 export default defineConfig(({ mode }) => {
   const environment = { ...loadEnv(mode, rootDirectory, ''), ...process.env };
-  const target = environment.DEV_PROXY_TARGET;
+  const target = environment.DOMAIN_BE || environment.DEV_PROXY_TARGET;
 
   return {
     plugins: [transformJsxInJavaScript(), react({ include: /\.(js|jsx)$/ })],
@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => {
       port: 5180,
       // Auth bằng cookie: đi qua proxy để cookie cùng origin với trang
       proxy: target ? {
-        '/api': { target, changeOrigin: true, secure: false },
+        '/api': { target, changeOrigin: true, secure: true, cookieDomainRewrite: '' },
       } : undefined,
     },
   };

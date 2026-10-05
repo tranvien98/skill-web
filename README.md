@@ -7,7 +7,7 @@ bằng cookie; không có chế độ mock dữ liệu.
 ## Yêu cầu
 
 - Node.js **24.x** theo `.nvmrc` và `package.json`, kèm npm.
-- Backend `owlla_backend` đã cấu hình và chạy được.
+- Backend mặc định: `https://owlla-dev.ih1.thinklabs.com.vn`; có thể đổi sang backend local.
 - Tài khoản đăng nhập hợp lệ trên backend.
 - Nếu kiểm tra upload ZIP: cần worker Celery xử lý queue `skill_scan` và sandbox của backend.
 
@@ -34,11 +34,12 @@ test -f .env || cp .env.example .env
 Trong `.env`, đặt địa chỉ backend:
 
 ```dotenv
-DEV_PROXY_TARGET=http://localhost:5055
+DOMAIN_BE=https://owlla-dev.ih1.thinklabs.com.vn
 ```
 
-`5055` là giá trị mẫu. Thay bằng cổng thực tế của backend, không thêm `/api` vào cuối.
-Nếu `.env` đã tồn tại, sửa giá trị trong file đó.
+Không thêm `/api` vào cuối domain. Để dùng backend local, đặt
+`DOMAIN_BE=http://localhost:5055` (thay cổng theo backend). Nếu `.env` đã tồn tại,
+sửa giá trị trong file đó. `DEV_PROXY_TARGET` vẫn được hỗ trợ khi không có `DOMAIN_BE`.
 
 Khởi động frontend:
 
@@ -60,8 +61,8 @@ Dừng server bằng `Ctrl+C`. Sau khi thay đổi `.env`, dừng và chạy l�
 
 ## Chạy backend và worker
 
-Nếu đã có backend do đội phát triển cung cấp, chỉ cần đặt `DEV_PROXY_TARGET` trỏ tới
-backend đó. Các lệnh dưới đây dành cho cấu trúc thư mục hiện tại:
+Backend mặc định dùng server dev ở domain trên, không cần chạy backend local.
+Nếu dùng backend khác, đặt `DOMAIN_BE` trỏ tới backend đó. Các lệnh dưới đây dành cho cấu trúc thư mục hiện tại:
 
 ```text
 Thinklabs/
@@ -81,8 +82,8 @@ cd ../../owlla_backend
 uv run main.py
 ```
 
-Địa chỉ API lấy theo `HOST`/`PORT` của backend; cấu hình mẫu frontend dùng
-`http://localhost:5055`.
+Địa chỉ API lấy theo `HOST`/`PORT` của backend; để chạy local có thể dùng
+`DOMAIN_BE=http://localhost:5055`.
 
 **Terminal 2 — worker quét upload**, cũng bắt đầu từ thư mục `skill-web`:
 
@@ -101,10 +102,11 @@ rồi chuyển sang trạng thái lỗi. Xem log worker và **Lịch sử upload
 ## Cách frontend kết nối API
 
 ```text
-Trình duyệt → localhost:5180/api/... → Vite proxy → DEV_PROXY_TARGET/api/...
+Trình duyệt → localhost:5180/api/... → Vite proxy → DOMAIN_BE/api/...
 ```
 
-- Proxy `/api` được cấu hình trong `vite.config.mjs` khi có `DEV_PROXY_TARGET`.
+- Proxy `/api` trong `vite.config.mjs` ưu tiên `DOMAIN_BE`, sau đó đến `DEV_PROXY_TARGET`.
+- Proxy xác minh chứng chỉ HTTPS và chuyển cookie domain của backend về hostname frontend.
 - Axios gửi cookie bằng `withCredentials`.
 - Khi API trả `401`, frontend thử làm mới phiên qua `/api/refresh`; nếu thất bại,
   ứng dụng chuyển về trang đăng nhập.
@@ -134,7 +136,7 @@ Cookie không phân biệt cổng, nên phiên đăng nhập trên cùng hostnam
 
 `vite preview` dùng để kiểm tra local. Khi đưa `dist/` lên máy chủ thật, cấu hình
 reverse proxy `/api` tới backend và fallback các route frontend về `index.html`.
-Biến `DEV_PROXY_TARGET` không tự tạo proxy cho máy chủ phục vụ file tĩnh.
+Biến `DOMAIN_BE`/`DEV_PROXY_TARGET` không tự tạo proxy cho máy chủ phục vụ file tĩnh.
 
 Hiện dự án chưa khai báo script `test` hoặc `lint`. Build có thể báo cảnh báo chunk
 lớn do các thư viện giao diện và editor; cảnh báo này không đồng nghĩa build thất bại.
@@ -166,7 +168,7 @@ Trang chi tiết đã bỏ hàng 4 thẻ thống kê theo quyết định ghi tr
 
 | Hiện tượng | Cách kiểm tra |
 |---|---|
-| Không kết nối được máy chủ / lỗi proxy | Kiểm tra backend đang chạy, địa chỉ `DEV_PROXY_TARGET` và log Vite; khởi động lại Vite sau khi sửa `.env`. |
+| Không kết nối được máy chủ / lỗi proxy | Kiểm tra backend đang chạy, địa chỉ `DOMAIN_BE` và log Vite; khởi động lại Vite sau khi sửa `.env`. |
 | Đăng nhập xong vẫn quay về login | Kiểm tra request `/api/users/me`, cookie đăng nhập, cấu hình cookie phía backend và hostname đang dùng. |
 | Upload chờ xử lý lâu | Kiểm tra worker đang nghe queue `skill_scan` và kết nối Redis. |
 | Upload chuyển sang lỗi | Mở chi tiết upload, xem log worker và cấu hình/kết nối sandbox. |
