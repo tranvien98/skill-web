@@ -201,3 +201,15 @@ src/
 ```
 
 Tham khảo `PLAN.md` để xem phạm vi và các yêu cầu giao diện.
+
+## Demo deployment
+
+- Frontend: https://demo-skill.viendev.xyz
+- Backend: https://owlla-dev.ih1.thinklabs.com.vn
+- Public repository: https://github.com/tranvien98/skill-web
+
+Nginx proxies `/api/` to the backend over verified HTTPS and rewrites backend cookie
+domains to the demo host. Frontend routes fall back to `index.html`. Kubernetes
+manifests live in `deploy/`; ArgoCD manages namespace `skill-web-dev` on Contabo.
+Push to `main` builds a GHCR image; Image Updater selects the new build and ArgoCD
+rolls out the app automatically. `.env` is excluded from Git and Docker builds.
