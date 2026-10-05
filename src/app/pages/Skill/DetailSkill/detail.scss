@@ -1,0 +1,29 @@
+.skill-detail {
+  .skill-detail-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+  }
+
+  .skill-detail-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 380px;
+    min-width: 0;
+  }
+
+  .skill-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  button:focus-visible, [role="tab"]:focus-visible, [role="treeitem"]:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: -2px;
+  }
+}

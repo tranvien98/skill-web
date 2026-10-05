@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    img, svg, video, canvas, audio, iframe, embed, object {
+        vertical-align: unset;
+    }
+
+    :root {
+        --primary-50: 168, 76%, 98%;
+        --primary-100: 168, 76%, 94%;
+        --primary-200: 168, 76%, 88%;
+        --primary-300: 168, 76%, 70%;
+        --primary-400: 168, 76%, 60%;
+        --primary: 168 76% 36%;
+        --primary-foreground: 0 0% 100%;
+
+        --warning: 38 92% 50%;
+        --warning-foreground: 0 0% 100%;
+
+        --background: 210 20% 98%;
+        --foreground: 222 47% 11%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+
+
+
+        --landing-background: 210 50% 98%;
+        --landing-foreground: 222 47% 11%;
+
+        --landing-card: 0 0% 100%;
+        --landing-card-foreground: 222 47% 11%;
+
+        --landing-popover: 0 0% 100%;
+        --landing-popover-foreground: 222 47% 11%;
+
+        --landing-primary: 221 83% 53%;
+        --landing-primary-foreground: 210 40% 98%;
+
+        --secondary: 210 40% 96%;
+        --secondary-foreground: 222 47% 11%;
+
+        --muted: 210 40% 96%;
+        --muted-foreground: 215 16% 47%;
+
+        --accent: 221 83% 53%;
+        --accent-foreground: 210 40% 98%;
+
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 210 40% 98%;
+
+        --border: 214 32% 91%;
+        --input: 214 32% 91%;
+        --ring: 221 83% 53%;
+
+        --radius: 0.75rem;
+
+        /* Custom brand colors */
+        --brand-blue: 221 83% 53%;
+        --brand-blue-light: 217 91% 60%;
+        --brand-blue-dark: 224 76% 48%;
+        --brand-gradient-start: 221 83% 53%;
+        --brand-gradient-end: 250 84% 54%;
+
+        /* Feature colors */
+        --feature-blue: 221 83% 53%;
+        --feature-purple: 262 83% 58%;
+        --feature-orange: 25 95% 53%;
+        --feature-green: 142 71% 45%;
+        --feature-cyan: 187 92% 41%;
+        --feature-pink: 330 81% 60%;
+        --feature-amber: 38 92% 50%;
+        --feature-red: 0 84% 60%;
+
+        /* Gradients */
+        --gradient-hero: linear-gradient(135deg, hsl(221, 83%, 97%) 0%, hsl(250, 84%, 97%) 50%, hsl(210, 50%, 98%) 100%);
+        --gradient-cta: linear-gradient(135deg, hsl(217, 91%, 95%) 0%, hsl(221, 83%, 97%) 100%);
+        --gradient-landing-primary: linear-gradient(135deg, hsl(221, 83%, 53%) 0%, hsl(250, 84%, 54%) 100%);
+
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --shadow-card: 0 4px 20px -2px rgb(37 99 235 / 0.08);
+        --shadow-card-hover: 0 8px 30px -4px rgb(37 99 235 / 0.15);
+
+        --sidebar-background: 0 0% 98%;
+        --sidebar-foreground: 240 5.3% 26.1%;
+        --sidebar-primary: 240 5.9% 10%;
+        --sidebar-primary-foreground: 0 0% 98%;
+        --sidebar-accent: 240 4.8% 95.9%;
+        --sidebar-accent-foreground: 240 5.9% 10%;
+        --sidebar-border: 220 13% 91%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+    }
+}
+

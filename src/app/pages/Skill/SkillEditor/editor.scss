@@ -1,0 +1,39 @@
+.skill-editor {
+  .skill-resize-h {
+    width: 1px;
+    background: hsl(var(--border));
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0 -3px;
+    }
+
+    &[data-resize-handle-state="hover"],
+    &[data-resize-handle-state="drag"] {
+      background: hsl(var(--primary));
+    }
+  }
+
+  .skill-resize-v {
+    height: 1px;
+    background: hsl(var(--border));
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: -3px 0;
+    }
+
+    &[data-resize-handle-state="hover"],
+    &[data-resize-handle-state="drag"] {
+      background: hsl(var(--primary));
+    }
+  }
+
+  .skill-tabs::-webkit-scrollbar {
+    height: 3px;
+  }
+}

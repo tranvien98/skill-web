@@ -1,0 +1,43 @@
+{
+  "name": "owllee-skill-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prototype giao diện quản lý Skill, cùng stack với owlla_frontend",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "@monaco-editor/react": "^4.7.0",
+    "antd": "^5.11.1",
+    "axios": "^1.5.1",
+    "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
+    "filesize": "^11.0.13",
+    "i18next": "^23.5.1",
+    "lucide-react": "^0.562.0",
+    "monaco-editor": "0.57.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^11.3.2",
+    "react-i18next": "^15.0.2",
+    "react-resizable-panels": "^3.0.1",
+    "react-router-dom": "^6.17.0",
+    "react-toastify": "^10.0.6",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^3.4.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "postcss": "^8.4.31",
+    "postcss-preset-env": "^9.2.0",
+    "sass": "^1.102.0",
+    "vite": "^8.2.2"
+  }
+}
